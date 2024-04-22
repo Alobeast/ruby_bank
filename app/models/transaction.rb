@@ -7,6 +7,10 @@ class Transaction < ApplicationRecord
     greater_than: 0, message: "must be greater than zero"
   }
   validates :transaction_type, presence: true
+  validate :balance_must_be_non_negative
+
+  scope :credits, -> { where(transaction_type: [:deposit, :transfer_in]) }
+  scope :debits, -> { where(transaction_type: [:withdrawal, :transfer_out]) }
 
   enum transaction_type: {
     deposit: 0,
@@ -14,4 +18,10 @@ class Transaction < ApplicationRecord
     transfer_out: 2,
     transfer_in: 3
   }
+
+  def balance_must_be_non_negative
+    return unless withdrawal? || transfer_out?
+    new_balance = account.balance - amount
+    errors.add(:base, "Insufficient funds") if new_balance < 0
+  end
 end
