@@ -8,6 +8,8 @@ class Transaction < ApplicationRecord
   }
   validates :transaction_type, presence: true
   validate :balance_must_be_non_negative
+  validate :sender_can_not_be_receiver
+
 
   scope :credits, -> { where(transaction_type: [:deposit, :transfer_in]) }
   scope :debits, -> { where(transaction_type: [:withdrawal, :transfer_out]) }
@@ -23,5 +25,11 @@ class Transaction < ApplicationRecord
     return unless withdrawal? || transfer_out?
     new_balance = account.balance - amount
     errors.add(:base, "Insufficient funds") if new_balance < 0
+  end
+
+  def sender_can_not_be_receiver
+    if account_id == counterpart_account_id
+      errors.add(:counterpart_account_id, "cannot be the same as the account_id")
+    end
   end
 end

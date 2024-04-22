@@ -13,6 +13,17 @@ class Account < ApplicationRecord
     transaction_creator.credit(amount)
   end
 
+  def transfer!(amount, counterpart_account)
+    transaction_creator = TransactionCreator.new(self)
+    errors = transaction_creator.transfer(amount, counterpart_account)
+    if errors.empty?
+      return true
+    else
+      errors.each { |error| self.errors.add(:base, error) }
+      return false
+    end
+  end
+
   private
 
   def credit_sum
