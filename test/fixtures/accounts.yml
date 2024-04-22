@@ -1,9 +1,7 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
   user: one
   account_number: MyString
 
 two:
   user: two
-  account_number: MyString
+  account_number: AnotherString
