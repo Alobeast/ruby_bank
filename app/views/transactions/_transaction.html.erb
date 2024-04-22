@@ -1,0 +1,14 @@
+<div class="flex <%= transaction_color_class(transaction) %>">
+  <div class="w-1/5">
+    <p><%= transaction.transaction_type.titleize %></p>
+  </div>
+  <div class="w-1/5">
+    <p><%= number_to_currency(transaction.amount) %></p>
+  </div>
+  <div class="w-1/5">
+    <p><%= transaction.created_at.strftime("%Y-%d-%m") %></p>
+  </div>
+  <div class="w-1/5">
+    <p><%= transaction.counterpart_account.try(:account_number) || "N/A" %></p>
+  </div>
+</div>

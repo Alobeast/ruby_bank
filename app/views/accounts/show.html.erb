@@ -1,0 +1,14 @@
+<div class="flex justify-between">
+  <h1 class="text-2xl font-bold">
+    Account Details
+  </h1>
+  <p class="text-l font-bold">Account Number: <%= @account.account_number %></p>
+  <p class="text-l font-bold">Balance: <%= number_to_currency(@account.balance) %></p>
+</div>
+
+<div class="mt-4">
+  <h4 class="font-medium text-gray-700 text-xl">Transactions</h4>
+  <div id="workouts" class="flex flex-col divide-y divide-gray-200">
+      <%= render @transactions %>
+  </div>
+</div>
