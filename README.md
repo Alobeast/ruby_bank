@@ -1,24 +1,10 @@
-# README
+# Rails Banking App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Create a user via the console:
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+User.create_user_with_account([email],[password])
+```
+**[email] must be in a correct format** `example: "example@example.com"`\
+**[password] must be more than 6 characters long** `example: "password123"`\
+Creating a user will also create its associated account
