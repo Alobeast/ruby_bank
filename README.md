@@ -1,7 +1,7 @@
 # Rails Banking App
 
 ## Start the app locally
-1. Run database migrations `bin/rails db:migrate`
+1. Setup the application `bin/setup`
 2. Start the application `bin/dev`
 3. Access the app on your browser at `http://localhost:3000/`
 
@@ -32,3 +32,14 @@ Outputs a hash with following info at given date:
 * :debit
 * :balance
 * :transactions_list
+
+## Run Unit and Integration tests via the terminal
+```
+bin/rails test
+```
+
+Tests can be found
+* [app/test/models/account_test.rb](https://github.com/Alobeast/ruby_bank/blob/master/test/models/account_test.rb)
+* [app/test/models/user_test.rb](https://github.com/Alobeast/ruby_bank/blob/master/test/models/user_test.rb)
+* [app/test/integration/transfer_test.rb](https://github.com/Alobeast/ruby_bank/blob/master/test/integration/transfer_test.rb)
+* [app/test/integration/user_access_test.rb](https://github.com/Alobeast/ruby_bank/blob/master/test/integration/user_access_test.rb)
