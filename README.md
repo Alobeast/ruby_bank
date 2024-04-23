@@ -1,5 +1,10 @@
 # Rails Banking App
 
+## Start the app locally
+1. Run database migrations `bin/rails db:migrate`
+2. Start the application `bin/dev`
+3. Access the app on your browser at `http://localhost:3000/`
+
 ## Create a user via the console:
 
 ```
@@ -20,4 +25,10 @@ user.account.credit([amount])
 ```
 user.account.balance_history([date])
 ```
-**[email] must be in a correct "DD-MM-YY" format** `example: "28-02-24"`\
+**[date] must be in a correct "DD-MM-YY" format** `example: "28-02-24"`\
+Outputs a hash with following info at given date:
+
+* :credit
+* :debit
+* :balance
+* :transactions_list
