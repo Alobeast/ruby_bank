@@ -7,27 +7,28 @@ class AccountTest < ActiveSupport::TestCase
     @user_one = users(:one)
   end
 
-  test "should record a transaction when account is credited" do
+  test "should record a transaction when account is credited #transaction_creator" do
     account = @account_one
     assert_difference "account.transactions.count", 1, "1 transaction should be created" do
       account.credit!(100)
     end
   end
 
-  test "user's balance should be increased when account is credited" do
+  test "user's balance should be increased when account is credited #transaction_creator" do
     account = @account_one
     assert_difference "account.balance", 100, "account should be credited" do
       account.credit!(100)
     end
   end
 
-  test "no transaction should be recorded when account is credited with negative amount" do
+  test "no transaction should be recorded when account is credited with negative amount #transaction_creator" do
     account = @account_one
     assert_no_difference "account.transactions.count", "no transaction should be created" do
       account.credit!(-35)
     end
   end
-  test "account cannot be credited with negative amount" do
+
+  test "account cannot be credited with negative amount #transaction_creator" do
     account = @account_one
     assert_no_difference "account.balance", "account balance should not change" do
       account.credit!(-35)
@@ -40,31 +41,31 @@ class AccountTest < ActiveSupport::TestCase
     assert_equal 50, account.balance, "balance should equal sum of transactions"
   end
 
-  test "transfer should record 2 transactions" do
+  test "transfer should record 2 transactions #transaction_creator" do
     assert_difference "Transaction.count", 2, "2 transactions should be created" do
       @account_one.transfer!(50, @account_two)
     end
   end
 
-  test "transfer should reduce sender's account balance" do
+  test "transfer should reduce sender's account balance #transaction_creator" do
     assert_difference "@account_one.balance", -10, "sender's balance should be reduced" do
       @account_one.transfer!(10, @account_two)
     end
   end
 
-  test "transfer should increase recipient's account balance" do
+  test "transfer should increase recipient's account balance #transaction_creator" do
     assert_difference "@account_two.balance", 10, "recipient's balance should be increased" do
       @account_one.transfer!(10, @account_two)
     end
   end
 
-  test "negative amount transfer can not be performed" do
+  test "negative amount transfer can not be performed #transaction_creator" do
     assert_no_difference ["@account_one.balance", "@account_two.balance"], "balances should not change" do
       @account_one.transfer!(-10, @account_two)
     end
   end
 
-  test "transfer with insufficient funds should not go through" do
+  test "transfer with insufficient funds should not go through #transaction_creator" do
     assert_no_difference "@account_one.balance", "sender balance should not change" do
       @account_one.transfer!(1000000, @account_two)
     end
@@ -73,7 +74,7 @@ class AccountTest < ActiveSupport::TestCase
     end
   end
 
-  test "user can not transfer to their own account" do
+  test "user can not transfer to their own account #transaction_creator" do
     assert_no_difference "@account_one.balance", "balances should not change" do
       @account_one.transfer!(10, @account_one)
     end

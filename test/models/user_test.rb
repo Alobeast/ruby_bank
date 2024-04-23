@@ -32,13 +32,13 @@ class UserTest < ActiveSupport::TestCase
     assert user.persisted?, "User should have been saved successfully"
   end
 
-  test "using the user creator service creates a user and their account" do
+  test "using the user creator service creates a user and their account #user_creator" do
     user = User.create_user_with_account("newuser@example.com","password123")
     assert user.persisted?, "User should have been saved successfully"
     assert user.account, "User should have an associated account"
   end
 
-  test "the user creation service should fail with invalid user params" do
+  test "the user creation service should fail with invalid user params #user_creator" do
     assert_no_difference "User.count", "should not create user nor account" do
       User.create_user_with_account("", "password123")
     end
