@@ -40,7 +40,8 @@ class TransferTest < ActionDispatch::IntegrationTest
         }
     end
 
-      assert_response :success, "Transfer should not be allowed with negative amount"
+      assert_response :success, "should handle negative amount error and render view"
+      assert_includes response.body, '<p class="alert">', "Error message should be displayed"
       assert_includes response.body, "Transfer Funds - Available"
       assert_includes response.body, "Amount to Transfer"
   end
@@ -56,7 +57,23 @@ class TransferTest < ActionDispatch::IntegrationTest
         }
     end
 
-    assert_response :success, "Transfer should not be allowed with insufficient funds"
+    assert_response :success, "should handle no insufficient fund error and render view"
+    assert_includes response.body, '<p class="alert">', "Error message should be displayed"
+    assert_includes response.body, "Transfer Funds - Available"
+    assert_includes response.body, "Amount to Transfer"
+  end
+
+  test "transfer fails if receiver account not selected" do
+    user_one = @user_one
+    get new_transfer_account_path
+    assert_no_difference "user_one.account.balance" do
+      post new_transfer_account_path, params: {
+        counterpart_account_id: nil,
+        amount: 10.00
+      }
+    end
+    assert_response :success, "should handle no receiver account error and render view"
+    assert_includes response.body, '<p class="alert">', "Error message should be displayed"
     assert_includes response.body, "Transfer Funds - Available"
     assert_includes response.body, "Amount to Transfer"
   end
