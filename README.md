@@ -15,3 +15,9 @@ Creating a user will also create its associated account
 user = User.find_by(email: [email])
 user.account.credit([amount])
 ```
+## Request account's balance history at a given date via the console:
+
+```
+user.account.balance_history([date])
+```
+**[email] must be in a correct "DD-MM-YY" format** `example: "28-02-24"`\

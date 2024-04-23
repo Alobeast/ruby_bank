@@ -78,4 +78,14 @@ class AccountTest < ActiveSupport::TestCase
       @account_one.transfer!(10, @account_one)
     end
   end
+
+  test "balance history returns balance and transactions list at given date" do
+    account = @account_two
+    date = (Date.today - 1.day).strftime('%d-%m-%y')
+    balance_history = account.balance_history(date)
+    assert_equal 500, balance_history[:credit], "balance history should return total credit at given date"
+    assert_equal 150, balance_history[:debit], "balance history should return total debit at given date"
+    assert_equal 350, balance_history[:balance], "balance history should return balance at given date"
+    assert_equal 2, balance_history[:transactions_list].count, "balance history should return all existing transactions at given date"
+  end
 end
