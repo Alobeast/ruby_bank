@@ -1,0 +1,17 @@
+<h1>Transfer Funds - Available: <%= number_to_currency(@account.balance) %></h1>
+
+<%= form_with url: new_transfer_account_path, method: :post, local: true,
+ data: { turbo: false } do |form| %>
+  <div class="field">
+    <%= form.label :amount, "Amount to Transfer" %>
+    <%= form.number_field :amount, step: 0.01, min: 0.01, value: @amount, required: true %>
+  </div>
+  <div class="field">
+    <%= form.label :counterpart_account_id, "Transfer to Account" %>
+    <%= form.collection_select :counterpart_account_id, @transferable_accounts,
+    :id, :account_number, selected: @selected_account_id, include_blank: "Select an Account", required: true %>
+  </div>
+  <div class="actions">
+    <%= form.submit "Transfer" %>
+  </div>
+<% end %>

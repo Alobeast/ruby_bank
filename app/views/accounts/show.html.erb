@@ -3,7 +3,8 @@
     Account Details
   </h1>
   <p class="text-l font-bold">Account Number: <%= @account.account_number %></p>
-  <p class="text-l font-bold">Balance: <%= number_to_currency(@account.balance) %></p>
+  <p class="text-l font-bold">Balance: <%= number_to_currency(@balance) %></p>
+  <%= link_to 'Transfer Funds', new_transfer_account_path, class: "bg-blue-500 hover:bg-blue-700 text-white py-2 px-2 rounded" %>
 </div>
 
 <div class="mt-4">
